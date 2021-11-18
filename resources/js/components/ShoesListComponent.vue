@@ -36,9 +36,7 @@
                 </tr>
               </table>
             </form>
-            <div class="alert alert-success" v-if="message">
-              {{ message }}
-            </div>
+            <message-component :message="message"></message-component>
           </div>
         </div>
       </div>

@@ -45,9 +45,7 @@
                 </td>
               </tr>
             </table>
-            <div class="alert alert-success" v-if="message">
-              {{ message }}
-            </div>
+            <message-component :message="message"></message-component>
           </div>
         </div>
       </div>
@@ -102,6 +100,13 @@ export default {
       e.preventDefault();
       axios
         .get("http://localhost:8000/api/carts/clean", this.headers_conf)
+        .then((response) => (this.message = response.data.message))
+        .then(this.refresh_timer);
+    },
+    payAll: function (e) {
+      e.preventDefault();
+      axios
+        .get("http://localhost:8000/api/carts/payall", this.headers_conf)
         .then((response) => (this.message = response.data.message))
         .then(this.refresh_timer);
     },
