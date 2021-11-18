@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CartRequest;
 use App\Http\Resources\CartResource;
 use App\Mail\PaymentMail;
 use App\Models\Cart;
 use App\Models\Shoe;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
@@ -20,7 +17,7 @@ class CartController extends Controller
         $this->middleware('auth');
     }
 
-    /**deletes one cart item */
+    /**deletes all cart items */
     public function clean(Request $request)
     {
         Cart::where('user_id', Auth::user()->id)->delete();
@@ -32,7 +29,6 @@ class CartController extends Controller
 
         return redirect('carts.index');
     }
-
     /**deletes one cart item */
     public function delete(Request $request, $id)
     {
@@ -80,7 +76,6 @@ class CartController extends Controller
             'items' => $items
         ]);
     }
-
     /**checks if theres any shoe on the cart item */
     public function is_mounted()
     {
@@ -89,7 +84,6 @@ class CartController extends Controller
             'message' => $result
         ]);
     }
-
     /**adds one item to cart */
     public function add($id)
     {
